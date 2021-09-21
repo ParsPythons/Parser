@@ -2,7 +2,7 @@ from bs4 import BeautifulSoup as BS
 from time import sleep
 import requests
 
-print("Эта программа находится в тестировании, если найдётся ошибка отправьте на: alxkalash@yandex.ru")
+print("Эта программа находится в тестировании, если найдётся ошибка отправьте на: parsprogram@yandex.ru")
 
 
 def sleep_func(secn):
