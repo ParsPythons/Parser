@@ -41,7 +41,7 @@ def check_version():
         only_ver = vers.read()
     print(f"Текущая версия: {only_ver}")
     print(f"Версия на сайте: {version}")
-    if version != only_ver:
+    if version != only_ver.strip():
         print("Есть обновление, не хотите обновиться? (y/n)")
         upgrade = input("> ").strip().lower()
         if upgrade == "y":
@@ -81,7 +81,10 @@ def sleep_time():
         print("Измините время ожидания!!!")
 
 
-def google_russia_news():
+timed = sleep_time()
+
+
+def google_russia_news(x=1):
     response = requests.get("https://news.google.com/topics/CAAqIQgKIhtDQkFTRGdvSUwyMHZNRFppYm5vU0FuSjFLQUFQAQ?hl=ru&gl=RU&ceid=RU%3Aru").text
     sup = BS(response, "html.parser")
 
@@ -90,10 +93,12 @@ def google_russia_news():
     for news in new:
         print("Заголовки:")
         news = news.find("a", class_="DY5T1d RZIKme")
-        print(news.text)
+        print(str(x) + ". " + str(news.text))
+        sleep(timed)
+        x += 1
 
 
-def google_world_news():
+def google_world_news(x=1):
     response = requests.get("https://news.google.com/topics/CAAqJggKIiBDQkFTRWdvSUwyMHZNRGx1YlY4U0FuSjFHZ0pTVlNnQVAB?hl=ru&gl=RU&ceid=RU%3Aru").text
     sup = BS(response, "html.parser")
 
@@ -102,7 +107,9 @@ def google_world_news():
     for news in new:
         print("Заголовки:")
         news = news.find("a", class_="DY5T1d RZIKme")
-        print(news.text)
+        print(str(x) + ". " + str(news.text))
+        sleep(timed)
+        x += 1
 
 
 def parse_main_page(x=1):
@@ -122,7 +129,6 @@ def parse_main_page(x=1):
         if themes is not None:
             print(str(x) + ". " + str(themes.text))
             print("===")
-            timed = sleep_time()
             sleep(timed)
             x += 1
 
@@ -138,12 +144,13 @@ def print_smi_news(x=1):
         newsmi = newsmi.find("h2", class_="mg-card__title")
         print(str(x) + ". " + newsmi.text)
         print("===")
-        timew = sleep_time()
-        sleep(timew)
+        sleep(timed)
         x += 1
 
 
 print("Это парсер. Его функция заключается в нахождении новостей.")
+che = choise_source_site()
+check_version()
 bol = True
 
 # Цикл
@@ -151,8 +158,6 @@ while bol:
     Wifi = check_wifi()
     if Wifi == True:
         # Выбор пользователя
-        che = choise_source_site()
-        check_version()
         if che == "yandex":
             print("Вывести новости с главной страницы 'Яндекс' (1)")
             print("Вывести новости СМИ (2)")
