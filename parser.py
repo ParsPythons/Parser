@@ -91,7 +91,6 @@ def google_russia_news(x=1):
     new = sup.find_all("h3", class_="ipQwMb ekueJc RD0gLb")
 
     for news in new:
-        print("Заголовки:")
         news = news.find("a", class_="DY5T1d RZIKme")
         print(str(x) + ". " + str(news.text))
         sleep(timed)
@@ -105,7 +104,6 @@ def google_world_news(x=1):
     new = sup.find_all("h3", class_="ipQwMb ekueJc RD0gLb")
 
     for news in new:
-        print("Заголовки:")
         news = news.find("a", class_="DY5T1d RZIKme")
         print(str(x) + ". " + str(news.text))
         sleep(timed)
@@ -149,13 +147,15 @@ def print_smi_news(x=1):
 
 
 print("Это парсер. Его функция заключается в нахождении новостей.")
+
+Wifi = check_wifi()
 che = choise_source_site()
 check_version()
+
 bol = True
 
 # Цикл
 while bol:
-    Wifi = check_wifi()
     if Wifi == True:
         # Выбор пользователя
         if che == "yandex":
