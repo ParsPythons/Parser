@@ -55,20 +55,22 @@ def check_version():
     print(f"Версия на сайте: {version}")
     if version != only_ver.strip():
         print("Есть обновление, не хотите обновиться? (y/n)")
-        print("Удалите файл .git!")
-        print("Нажмите Enter когда удалите...")
-        input("")
-        upgrade = input("> ").strip().lower()
-        if upgrade == "y":
-            # Обновление
-            path = os.getcwd()
-            os.chdir(path[:-6])
-            print("Идёт обновление, подождите...")
-            os.system("rm -R Parser")
-            os.system("git clone " + github)
-            os.chdir(path)
-            with open("version.txt", "w") as new_ver:
-                new_ver.write(version)
+        chse = input("").strip().lower()
+        if chse == "y":
+            print("Удалите файл .git!")
+            print("Нажмите Enter когда удалите...")
+            input("")
+            upgrade = input("> ").strip().lower()
+            if upgrade == "y":
+                # Обновление
+                path = os.getcwd()
+                os.chdir(path[:-6])
+                print("Идёт обновление, подождите...")
+                os.system("rm -R Parser")
+                os.system("git clone " + github)
+                os.chdir(path)
+                with open("version.txt", "w") as new_ver:
+                    new_ver.write(version)
 
 
 def clear_news():
