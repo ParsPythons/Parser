@@ -7,7 +7,19 @@ import requests
 print("Эта программа находится в тестировании, если найдётся ошибка отправьте на: parsprogram@yandex.ru")
 
 
+request = requests.get("https://yandex.ru").text
+
+
 # Начинаются функции
+def choise_source_site():
+    print("Яндекс (Y) или Google (G) ?: ")
+    choise = input("> ").strip().lower()
+    if choise == "y":
+        return "yandex"
+    else:
+        return "google"
+
+
 def check_wifi():
     # Проверка подключения к сети
     try:
@@ -69,11 +81,33 @@ def sleep_time():
         print("Измините время ожидания!!!")
 
 
+def google_russia_news():
+    response = requests.get("https://news.google.com/topics/CAAqIQgKIhtDQkFTRGdvSUwyMHZNRFppYm5vU0FuSjFLQUFQAQ?hl=ru&gl=RU&ceid=RU%3Aru").text
+    sup = BS(response, "html.parser")
+
+    new = sup.find_all("h3", class_="ipQwMb ekueJc RD0gLb")
+
+    for news in new:
+        print("Заголовки:")
+        news = news.find("a", class_="DY5T1d RZIKme")
+        print(news.text)
+
+
+def google_world_news():
+    response = requests.get("https://news.google.com/topics/CAAqJggKIiBDQkFTRWdvSUwyMHZNRGx1YlY4U0FuSjFHZ0pTVlNnQVAB?hl=ru&gl=RU&ceid=RU%3Aru").text
+    sup = BS(response, "html.parser")
+
+    new = sup.find_all("h3", class_="ipQwMb ekueJc RD0gLb")
+
+    for news in new:
+        print("Заголовки:")
+        news = news.find("a", class_="DY5T1d RZIKme")
+        print(news.text)
+
+
 def parse_main_page(x=1):
-    # Запрос на страницу
-    response = requests.get("https://www.yandex.ru").text
     # Задействуем библиотеку bs4
-    soup = BS(response, "html.parser")
+    soup = BS(request, "html.parser")
     # Выбираем нужные блоки
     reg = soup.find("span", class_="news__tab-text")
     news = soup.find_all("span", class_="news__item-inner")
@@ -94,7 +128,6 @@ def parse_main_page(x=1):
 
 
 def print_smi_news(x=1):
-    request = requests.get("https://yandex.ru").text
     soup = BS(request, "html.parser")
     url = soup.find("a", class_="home-link2 home-link2_color_blue home-link2_hover_red news__tab news__tab_selected_yes mix-tabber__tab mix-tabber__tab_selected_yes")
     sublink = url.get("href")
@@ -118,33 +151,60 @@ while bol:
     Wifi = check_wifi()
     if Wifi == True:
         # Выбор пользователя
+        che = choise_source_site()
         check_version()
-        print("Вывести новости с главной страницы 'Яндекс' (1)")
-        print("Вывести новости СМИ (2)")
-        print("Задать время ожидания (3)")
-        print("Очистить (4)")
-        print("Выход (5)")
-        vr = input(">> ").strip()
-        if vr == "1":
-            parse_main_page()
+        if che == "yandex":
+            print("Вывести новости с главной страницы 'Яндекс' (1)")
+            print("Вывести новости СМИ (2)")
+            print("Задать время ожидания (3)")
+            print("Очистить (4)")
+            print("Выход (5)")
+            vr = input(">> ").strip()
+            if vr == "1":
+                parse_main_page()
 
-        elif vr == "2":
-            print_smi_news()
+            elif vr == "2":
+                print_smi_news()
 
-        elif vr == "3":
-            print("Сколько секунд надо ждать?")
-            print("Нажмите Enter, если хотите вернуться!")
-            sec = input("").strip()
-            if sec != "":
-                sleep_func(sec)
-            else:
-                print("Пропущено!")
+            elif vr == "3":
+                print("Сколько секунд надо ждать?")
+                print("Нажмите Enter, если хотите вернуться!")
+                sec = input("").strip()
+                if sec != "":
+                    sleep_func(sec)
+                else:
+                    print("Пропущено!")
 
-        elif vr == "4":
-            clear_news()
+            elif vr == "4":
+                clear_news()
             
-        else:
-            bol = False
+            else:
+                bol = False
 
-    else:
-        bol = False
+        else:
+            print("Вывести новости из 'Google' (1)")
+            print("Вывести мировые новости (2)")
+            print("Задать время ожидания (3)")
+            print("Очистить (4)")
+            print("Выход (5)")
+            vr = input(">> ").strip()
+            if vr == "1":
+                google_russia_news()
+
+            elif vr == "2":
+                google_world_news()
+
+            elif vr == "3":
+                print("Сколько секунд надо ждать?")
+                print("Нажмите Enter, если хотите вернуться!")
+                sec = input("").strip()
+                if sec != "":
+                    sleep_func(sec)
+                else:
+                    print("Пропущено!")
+
+            elif vr == "4":
+                clear_news()
+
+            else:
+                bol = False
