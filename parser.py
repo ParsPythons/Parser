@@ -1,3 +1,4 @@
+# Импорт модулей
 from bs4 import BeautifulSoup as BS
 from time import sleep
 import os
