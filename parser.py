@@ -7,6 +7,7 @@ import requests
 print("Эта программа находится в тестировании, если найдётся ошибка отправьте на: parsprogram@yandex.ru")
 
 
+# Начинаются функции
 def check_wifi():
     # Проверка подключения к сети
     try:
@@ -41,6 +42,10 @@ def check_version():
             os.chdir(path)
             with open("version.txt", "w") as new_ver:
                 new_ver.write(version)
+
+
+def clear_news():
+    os.system("clear")
 
 
 def sleep_func(secn):
@@ -112,11 +117,13 @@ bol = True
 while bol:
     Wifi = check_wifi()
     if Wifi == True:
+        # Выбор пользователя
         check_version()
         print("Вывести новости с главной страницы 'Яндекс' (1)")
         print("Вывести новости СМИ (2)")
         print("Задать время ожидания (3)")
-        print("Выход (4)")
+        print("Очистить (4)")
+        print("Выход (5)")
         vr = input(">> ").strip()
         if vr == "1":
             parse_main_page()
@@ -132,6 +139,9 @@ while bol:
                 sleep_func(sec)
             else:
                 print("Пропущено!")
+
+        elif vr == "4":
+            clear_news()
             
         else:
             bol = False
