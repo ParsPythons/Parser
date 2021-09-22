@@ -30,6 +30,18 @@ def check_wifi():
         return False
 
 
+def upgrade_program():
+    print("Удалите файл .git!")
+    print("Нажмите Enter когда удалите...")
+    input("")
+    github = "https://github.com/ParsPythons/Parser.git"
+    path = os.getcwd()
+    os.chdir(path[:-6])
+    os.system("rm -R Parser")
+    os.system("git clone " + github)
+    os.chdir(path)
+
+
 def check_version():
     # Проверка обновлений
     ver_txt = "https://github.com/ParsPythons/Parser/blob/main/version.txt"
@@ -43,6 +55,9 @@ def check_version():
     print(f"Версия на сайте: {version}")
     if version != only_ver.strip():
         print("Есть обновление, не хотите обновиться? (y/n)")
+        print("Удалите файл .git!")
+        print("Нажмите Enter когда удалите...")
+        input("")
         upgrade = input("> ").strip().lower()
         if upgrade == "y":
             # Обновление
@@ -74,7 +89,7 @@ def sleep_time():
     with open("sleep_time.txt", "r") as file:
         times = file.read()
     try:
-        times = int(times)
+        times = int(times.strip())
         return times
     except:
         print("Ошибка 002!")
@@ -156,6 +171,8 @@ bol = True
 
 # Цикл
 while bol:
+    """Пасхалка
+    Ты молодец, если прочитал это"""
     if Wifi == True:
         # Выбор пользователя
         if che == "yandex":
@@ -163,7 +180,8 @@ while bol:
             print("Вывести новости СМИ (2)")
             print("Задать время ожидания (3)")
             print("Очистить (4)")
-            print("Выход (5)")
+            print("Переустановить (обновить) программу (5)")
+            print("Выход (6)")
             vr = input(">> ").strip()
             if vr == "1":
                 parse_main_page()
@@ -182,6 +200,9 @@ while bol:
 
             elif vr == "4":
                 clear_news()
+
+            elif vr == "5":
+                upgrade_program()
             
             else:
                 bol = False
@@ -191,6 +212,7 @@ while bol:
             print("Вывести мировые новости (2)")
             print("Задать время ожидания (3)")
             print("Очистить (4)")
+            print("Переустановить (обновить) программу (5)")
             print("Выход (5)")
             vr = input(">> ").strip()
             if vr == "1":
@@ -210,6 +232,9 @@ while bol:
 
             elif vr == "4":
                 clear_news()
+
+            elif vr == "5":
+                upgrade_program()
 
             else:
                 bol = False
