@@ -215,7 +215,7 @@ while bol:
             print("Задать время ожидания (3)")
             print("Очистить (4)")
             print("Переустановить (обновить) программу (5)")
-            print("Выход (5)")
+            print("Выход (6)")
             vr = input(">> ").strip()
             if vr == "1":
                 google_russia_news()
