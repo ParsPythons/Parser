@@ -1,4 +1,5 @@
-# Импорт модулей
+try:
+    # Импорт модулей
 from bs4 import BeautifulSoup as BS
 from time import sleep
 import os
@@ -238,3 +239,7 @@ while bol:
 
             else:
                 bol = False
+
+except:
+    print("Возникла ошибка при выполнении программы!")
+    print("Перезапустите программу или подождите некоторое время...")
