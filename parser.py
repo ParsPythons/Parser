@@ -4,7 +4,7 @@ from time import sleep
 import os
 import requests
 
-print("Эта программа находится в тестировании, если найдётся ошибка отправьте на: parsprogram@yandex.ru")
+print("Эта программа находится в тестировании!")
 
 
 request = requests.get("https://yandex.ru").text
