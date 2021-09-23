@@ -108,6 +108,7 @@ def google_russia_news(x=1):
     for news in new:
         news = news.find("a", class_="DY5T1d RZIKme")
         print(str(x) + ". " + str(news.text))
+        print("===")
         sleep(timed)
         x += 1
 
@@ -121,6 +122,7 @@ def google_world_news(x=1):
     for news in new:
         news = news.find("a", class_="DY5T1d RZIKme")
         print(str(x) + ". " + str(news.text))
+        print("===")
         sleep(timed)
         x += 1
 
@@ -171,8 +173,6 @@ bol = True
 
 # Цикл
 while bol:
-    """Пасхалка
-    Ты молодец, если прочитал это"""
     if Wifi == True:
         # Выбор пользователя
         if che == "yandex":
